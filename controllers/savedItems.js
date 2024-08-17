@@ -30,7 +30,7 @@ const createItem = (req, res, next) => {
 
 const getItems = (req, res, next) => {
   const owner = req.user._id;
-  SavedItem.findAll({ owner })
+  SavedItem.find({ owner })
     .then((items) => res.send(items))
     .catch((err) => next(err));
 };

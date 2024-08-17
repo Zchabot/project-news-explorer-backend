@@ -3,7 +3,7 @@ const BAD_REQUEST_MESSAGE =
 
 const NOT_FOUND_MESSAGE = "Requested resource not found";
 
-const DEFAULT_MESSAGE = "An error has occurred on the server.";
+const DEFAULT_MESSAGE = "An error has occurred on the server";
 
 const UNAUTHORIZED_MESSAGE = "Authorization Required";
 
