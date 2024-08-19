@@ -5,6 +5,7 @@ const {
   deleteItem,
 } = require("../controllers/savedItems");
 const { auth } = require("../middlewares/auth");
+const { checkOwner } = require("../middlewares/checkOwner");
 const {
   validateCardBody,
   validateItemId,
@@ -12,6 +13,6 @@ const {
 
 router.post("/", auth, validateCardBody, createItem);
 router.get("/", auth, getItems);
-router.delete("/:itemId", auth, validateItemId, deleteItem);
+router.delete("/:articleId", auth, checkOwner, validateItemId, deleteItem);
 
 module.exports = router;

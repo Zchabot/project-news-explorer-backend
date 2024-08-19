@@ -13,7 +13,7 @@ const {
 router.post("/signin", validateAuthUser, login);
 router.post("/signup", validateUserInfo, createUser);
 router.use("/users", userRouter);
-router.use("/items", savedItemRouter);
+router.use("/articles", savedItemRouter);
 router.use("*", (req, res, next) => {
   next(new NotFoundError(NOT_FOUND_MESSAGE));
 });
