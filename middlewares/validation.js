@@ -67,7 +67,7 @@ const validateUserInfo = celebrate({
 
 const validateArticleId = celebrate({
   params: Joi.object().keys({
-    itemId: Joi.string().required().hex().length(24).messages({
+    articleId: Joi.string().required().hex().length(24).messages({
       "string.length": "Invalid ID",
       "string.empty": "Invalid ID",
       "string.hex": "Invalid ID",
