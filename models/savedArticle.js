@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 
-const savedItemSchema = new mongoose.Schema({
+const savedArticleSchema = new mongoose.Schema({
   keyword: {
     type: String,
     required: true,
@@ -46,4 +46,4 @@ const savedItemSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("SavedItem", savedItemSchema);
+module.exports = mongoose.model("SavedArticle", savedArticleSchema);

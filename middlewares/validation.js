@@ -65,7 +65,7 @@ const validateUserInfo = celebrate({
   }),
 });
 
-const validateItemId = celebrate({
+const validateArticleId = celebrate({
   params: Joi.object().keys({
     itemId: Joi.string().required().hex().length(24).messages({
       "string.length": "Invalid ID",
@@ -79,5 +79,5 @@ module.exports = {
   validateCardBody,
   validateUserInfo,
   validateAuthUser,
-  validateItemId,
+  validateArticleId,
 };

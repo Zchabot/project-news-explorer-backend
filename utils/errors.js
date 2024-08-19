@@ -1,5 +1,5 @@
 const BAD_REQUEST_MESSAGE =
-  "invalid data passed to the methods for creating an item/user or updating an item/user, or invalid ID passed to the params.";
+  "invalid data passed to the methods for creating an article/user or updating an article/user, or invalid ID passed to the params.";
 
 const NOT_FOUND_MESSAGE = "Requested resource not found";
 

@@ -1,13 +1,13 @@
 const BadRequestError = require("../utils/Errors/BadRequestError");
 const NotFoundError = require("../utils/Errors/NotFoundError");
-const SavedItem = require("../models/savedItem");
+const SavedArticle = require("../models/savedArticle");
 
 const { BAD_REQUEST_MESSAGE, NOT_FOUND_MESSAGE } = require("../utils/errors");
 
-const createItem = (req, res, next) => {
+const createArticle = (req, res, next) => {
   const ownerId = req.user._id;
   const { keyword, title, text, date, source, link, image } = req.body;
-  SavedItem.create({
+  SavedArticle.create({
     keyword,
     title,
     text,
@@ -28,16 +28,16 @@ const createItem = (req, res, next) => {
     });
 };
 
-const getItems = (req, res, next) => {
+const getArticles = (req, res, next) => {
   const owner = req.user._id;
-  SavedItem.find({ owner })
+  SavedArticle.find({ owner })
     .then((items) => res.send(items))
     .catch((err) => next(err));
 };
 
-const deleteItem = (req, res, next) => {
-  const { itemId } = req.params;
-  SavedItem.findByIdAndDelete(itemId)
+const deleteArticle = (req, res, next) => {
+  const { articleId } = req.params;
+  SavedArticle.findByIdAndDelete(articleId)
     .orFail()
     .then((item) => res.send(item))
     .catch((err) => {
@@ -50,4 +50,4 @@ const deleteItem = (req, res, next) => {
     });
 };
 
-module.exports = { getItems, createItem, deleteItem };
+module.exports = { getArticles, createArticle, deleteArticle };

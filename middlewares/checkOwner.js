@@ -1,4 +1,4 @@
-const SavedItem = require("../models/clothingItem");
+const SavedArticle = require("../models/savedArticle");
 const {
   BAD_REQUEST_MESSAGE,
   NOT_FOUND_MESSAGE,
@@ -9,9 +9,10 @@ const NotFoundError = require("../utils/Errors/NotFoundError");
 const ForbiddenError = require("../utils/Errors/ForbiddenError");
 
 const checkOwner = (req, res, next) => {
-  const { itemId } = req.params;
+  const { articleId } = req.params;
   const ownerId = req.user._id;
-  SavedItem.findById(itemId)
+  SavedArticle.findById(articleId)
+    .select("+owner")
     .orFail()
     .then((item) => {
       const itemOwner = item.owner._id.toString();
