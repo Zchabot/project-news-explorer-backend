@@ -10,10 +10,19 @@ const {
   validateAuthUser,
 } = require("../middlewares/validation");
 
+/**
+ * Route layout:
+ * - Public routes (signup/signin) come first
+ * - auth middleware is applied in app.js
+ * - Protected resources (users/articles) are mounted after auth
+ */
+
 router.post("/signin", validateAuthUser, login);
 router.post("/signup", validateUserInfo, createUser);
 router.use("/users", userRouter);
 router.use("/articles", savedArticleRouter);
+
+// Catch-all for undefined routes (keeps API responses predictable for clients)
 router.use("*", (req, res, next) => {
   next(new NotFoundError(NOT_FOUND_MESSAGE));
 });

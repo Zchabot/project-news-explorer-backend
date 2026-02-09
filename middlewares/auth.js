@@ -24,4 +24,11 @@ const auth = (req, res, next) => {
   return next();
 };
 
+/**
+ * JWT auth middleware:
+ * - Reads Authorization header in the form "Bearer <token>"
+ * - Verifies token signature
+ * - Attaches decoded payload to req.user for downstream authorization checks
+ */
+
 module.exports = { auth };

@@ -30,6 +30,7 @@ const createArticle = (req, res, next) => {
 
 const getArticles = (req, res, next) => {
   const owner = req.user._id;
+  // Only return the current user's saved articles (multi-user isolation)
   SavedArticle.find({ owner })
     .then((items) => res.send(items))
     .catch((err) => next(err));
@@ -37,17 +38,20 @@ const getArticles = (req, res, next) => {
 
 const deleteArticle = (req, res, next) => {
   const { articleId } = req.params;
-  SavedArticle.findByIdAndDelete(articleId)
-    .orFail()
-    .then((item) => res.send(item))
-    .catch((err) => {
-      console.error(err);
-      if (err.name === "DocumentNotFoundError") {
-        next(new NotFoundError(NOT_FOUND_MESSAGE));
-      } else if (err.name === "CastError") {
-        next(new BadRequestError(BAD_REQUEST_MESSAGE));
-      } else next(err);
-    });
+    // NOTE: Best practice is to also verify the article belongs to req.user before deleting
+    // (prevents deleting another user's record if an ID is guessed)
+    SavedArticle.findByIdAndDelete(articleId)
+      .orFail()
+      .then((item) => res.send(item))
+      .catch((err) => {
+        console.error(err);
+        if (err.name === "DocumentNotFoundError") {
+          next(new NotFoundError(NOT_FOUND_MESSAGE));
+        } else if (err.name === "CastError") {
+          next(new BadRequestError(BAD_REQUEST_MESSAGE));
+        } else next(err);
+      })
+  );
 };
 
 module.exports = { getArticles, createArticle, deleteArticle };
